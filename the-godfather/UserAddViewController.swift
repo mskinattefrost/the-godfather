@@ -68,6 +68,16 @@ class UserAddViewController: UIViewController {
         
         self.doneButton.enabled = false
         // Do any additional setup after loading the view.
+        
+        let datePicker: UIDatePicker = UIDatePicker()
+        
+        datePicker.addTarget(self, action: "datePickerAction:", forControlEvents: .ValueChanged)
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        self.birthdayField.text = dateFormatter.stringFromDate(NSDate())
+        self.birthdayField.inputView = datePicker
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,6 +95,15 @@ class UserAddViewController: UIViewController {
         }
         
         return result
+    }
+    
+    func datePickerAction(sender: AnyObject) {
+        if let picker = sender as? UIDatePicker {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            self.birthdayField.text = dateFormatter.stringFromDate(picker.date)
+
+        }
     }
 
     /*

@@ -94,7 +94,11 @@ class UserEditViewController: UIViewController {
         
         self.ref = Firebase(url: "https://the-godfather.firebaseio.com/users/\(user!.id!)")
         
-        // Do any additional setup after loading the view.
+        let datePicker: UIDatePicker = UIDatePicker()
+        
+        datePicker.addTarget(self, action: "datePickerAction:", forControlEvents: .ValueChanged)
+        
+        self.birthdayField.inputView = datePicker
     }
 
     override func didReceiveMemoryWarning() {
@@ -112,6 +116,15 @@ class UserEditViewController: UIViewController {
         }
         
         return result
+    }
+    
+    func datePickerAction(sender: AnyObject) {
+        if let picker = sender as? UIDatePicker {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            self.birthdayField.text = dateFormatter.stringFromDate(picker.date)
+            
+        }
     }
     
     /*

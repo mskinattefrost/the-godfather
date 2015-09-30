@@ -9,6 +9,8 @@
 import UIKit
 
 class UserDisplayViewController: UIViewController {
+    
+    var ref: Firebase?
 
     @IBOutlet var profilePicture: UIImageView!
     
@@ -16,6 +18,14 @@ class UserDisplayViewController: UIViewController {
     @IBOutlet var age: UILabel!
     @IBOutlet var fatherFullName: UILabel!
     @IBOutlet var motherFullName: UILabel!
+    
+    @IBAction func deleteButton(sender: UIButton) {
+        
+        self.ref!.removeValueWithCompletionBlock { (error, firebase) -> Void in
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +44,8 @@ class UserDisplayViewController: UIViewController {
         self.age?.text = user!.ageDisplay()
         self.motherFullName?.text = user!.motherFullName()
         self.fatherFullName?.text = user!.fatherFullName()
+        
+        self.ref = Firebase(url: "https://the-godfather.firebaseio.com/users/\(user!.id!)")
     }
 
     override func didReceiveMemoryWarning() {

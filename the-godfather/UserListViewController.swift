@@ -24,14 +24,19 @@ class UserListViewController: UIViewController, UITableViewDelegate,UITableViewD
     
     func onDataReceive(snapshot: FDataSnapshot) {
         self.users = [User]()
-        for (id, values) in snapshot.value as! Dictionary<String, AnyObject> {
-            let u = User(id: id, object: values as! Dictionary<String, AnyObject>)
-            self.users.append(u)
+        
+        
+        if let vals = snapshot.value as? Dictionary<String, AnyObject> {
+            for (id, values) in vals {
+                let u = User(id: id, object: values as! Dictionary<String, AnyObject>)
+                self.users.append(u)
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.userList.reloadData()
+            }
         }
         
-        dispatch_async(dispatch_get_main_queue()) {
-            self.userList.reloadData()
-        }
     }
     
     override func didReceiveMemoryWarning() {

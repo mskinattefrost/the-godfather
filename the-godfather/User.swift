@@ -62,7 +62,7 @@ class User {
     }
     
     func ageDisplay() -> String {
-                
+        
         if !self.birthDate!.isEmpty {
             var calendar: NSCalendar = NSCalendar.currentCalendar()
             
