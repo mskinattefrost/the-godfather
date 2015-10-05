@@ -64,16 +64,16 @@ class User {
     func ageDisplay() -> String {
         
         if !self.birthDate!.isEmpty {
-            var calendar: NSCalendar = NSCalendar.currentCalendar()
+            let calendar: NSCalendar = NSCalendar.currentCalendar()
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "MMM dd, yyyy"
             let formattedDate = dateFormatter.dateFromString(self.birthDate!)
             
-            let ageComponents = calendar.components(.CalendarUnitYear,
+            let ageComponents = calendar.components(.Year,
                 fromDate: formattedDate!,
                 toDate: NSDate(),
-                options: nil)
+                options: [])
             let age = ageComponents.year
             
             return "\(age)"

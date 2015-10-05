@@ -34,8 +34,8 @@ class UserEditViewController: UIViewController {
                 "last_name": motherLastNameField.text
             ],
             "father": [
-                "first_name": fatherFirstNameField.text,
-                "last_name": fatherLastNameField.text
+                "first_name": fatherFirstNameField.text!,
+                "last_name": fatherLastNameField.text!
             ]
         ]
         
@@ -55,7 +55,7 @@ class UserEditViewController: UIViewController {
     
     @IBAction func lastNameChanged(sender: AnyObject) {
         
-        if blankCheck(lastNameField.text) {
+        if blankCheck(lastNameField.text!) {
             doneButton.enabled = false
         } else {
             doneButton.enabled = true
@@ -65,7 +65,7 @@ class UserEditViewController: UIViewController {
 
     @IBAction func firstNameChanged(sender: AnyObject) {
         
-        if blankCheck(firstNameField.text) {
+        if blankCheck(firstNameField.text!) {
             doneButton.enabled = false
         } else {
             doneButton.enabled = true
@@ -108,8 +108,6 @@ class UserEditViewController: UIViewController {
     
     func blankCheck(text: String) -> Bool {
         var result = false
-        
-        println("\(text)")
         
         if text == "" {
             result = true

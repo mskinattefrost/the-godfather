@@ -23,7 +23,7 @@ class UserAddViewController: UIViewController {
     @IBOutlet var doneButton: UIBarButtonItem!
 
     @IBAction func lastNameChanged(sender: AnyObject) {
-        if blankCheck(lastNameField.text) && blankCheck(firstNameField.text){
+        if blankCheck(lastNameField.text!) && blankCheck(firstNameField.text!){
             doneButton.enabled = true
         } else {
             doneButton.enabled = false
@@ -31,7 +31,7 @@ class UserAddViewController: UIViewController {
     }
 
     @IBAction func firstNameChanged(sender: AnyObject) {
-        if blankCheck(lastNameField.text) && blankCheck(firstNameField.text) {
+        if blankCheck(lastNameField.text!) && blankCheck(firstNameField.text!) {
             doneButton.enabled = true
         } else {
             doneButton.enabled = false
@@ -50,8 +50,8 @@ class UserAddViewController: UIViewController {
                 "last_name": motherLastNameField.text
             ],
             "father": [
-                "first_name": fatherFirstNameField.text,
-                "last_name": fatherLastNameField.text
+                "first_name": fatherFirstNameField.text!,
+                "last_name": fatherLastNameField.text!
             ]
         ]
         
@@ -88,7 +88,7 @@ class UserAddViewController: UIViewController {
     func blankCheck(text: String) -> Bool {
         var result = true
         
-        println("\(text)")
+        print("\(text)")
         
         if text == "" {
             result = false

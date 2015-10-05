@@ -57,12 +57,12 @@ class UserListViewController: UIViewController, UITableViewDelegate,UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("user") as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("user")
         let user = self.users[indexPath.row]
         
-        cell.textLabel?.text = user.reverseFullName()
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        return cell
+        cell!.textLabel?.text = user.reverseFullName()
+        cell!.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        return cell!
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
