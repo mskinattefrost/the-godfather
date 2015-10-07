@@ -40,19 +40,18 @@ class UserAddViewController: UIViewController {
     
     
     @IBAction func donePressed(sender: AnyObject) {
-        let user_dictionary: Dictionary<String, AnyObject>  = [
-            "first_name": firstNameField.text,
-            "last_name": lastNameField.text,
-            "nickname": nicknameField.text,
-            "birthday": birthdayField.text,
-            "mother": [
-                "first_name": motherFirstNameField.text,
-                "last_name": motherLastNameField.text
-            ],
-            "father": [
-                "first_name": fatherFirstNameField.text!,
-                "last_name": fatherLastNameField.text!
-            ]
+        var user_dictionary: Dictionary<String, AnyObject> = [:]
+        user_dictionary["first_name"] = firstNameField.text
+        user_dictionary["last_name"] = lastNameField.text
+        user_dictionary["nickname"] = nicknameField.text
+        user_dictionary["birthday"] = birthdayField.text
+        user_dictionary["mother"] = [
+            "first_name": motherFirstNameField.text!,
+            "last_name": motherLastNameField.text!
+        ]
+        user_dictionary["father"] = [
+            "first_name": fatherFirstNameField.text!,
+            "last_name": fatherLastNameField.text!
         ]
         
         let newUser = ref?.childByAutoId()
