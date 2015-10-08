@@ -24,26 +24,26 @@ class UserEditViewController: UIViewController {
     @IBOutlet var doneButton: UIBarButtonItem!
     
     @IBAction func donePressed(sender: AnyObject) {
-        var user_dictionary: Dictionary<String, AnyObject> = [:]
-        user_dictionary["first_name"] = firstNameField.text
-        user_dictionary["last_name"] = lastNameField.text
-        user_dictionary["nickname"] = nicknameField.text
-        user_dictionary["birthday"] = birthdayField.text
-        user_dictionary["mother"] = [
+        var userDictionary: Dictionary<String, AnyObject> = [:]
+        userDictionary["first_name"] = firstNameField.text
+        userDictionary["last_name"] = lastNameField.text
+        userDictionary["nickname"] = nicknameField.text
+        userDictionary["birthday"] = birthdayField.text
+        userDictionary["mother"] = [
             "first_name": motherFirstNameField.text!,
             "last_name": motherLastNameField.text!
         ]
-        user_dictionary["father"] = [
+        userDictionary["father"] = [
             "first_name": fatherFirstNameField.text!,
             "last_name": fatherLastNameField.text!
         ]
         
-        let u = User(id: self.user!.id!, object: user_dictionary)
+        let u = User(id: self.user!.id!, object: userDictionary)
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.userInView = u
         
         
-        let editUser: Void? = ref?.updateChildValues(user_dictionary)
+        let editUser: Void? = ref?.updateChildValues(userDictionary)
         
         var alert = UIAlertController(title: "Yay!", message: "User saved.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
@@ -53,7 +53,6 @@ class UserEditViewController: UIViewController {
     }
     
     @IBAction func lastNameChanged(sender: AnyObject) {
-        
         if blankCheck(lastNameField.text!) {
             doneButton.enabled = false
         } else {
@@ -71,7 +70,6 @@ class UserEditViewController: UIViewController {
         }
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,12 +82,12 @@ class UserEditViewController: UIViewController {
         self.birthdayField?.text = user?.birthDate
         
         let mom:Dictionary<String, AnyObject>? = user?.mother
-        self.motherFirstNameField?.text = mom?["first_name"] as! String
-        self.motherLastNameField?.text = mom?["last_name"] as! String
+        self.motherFirstNameField?.text = mom?["first_name"] as? String
+        self.motherLastNameField?.text = mom?["last_name"] as? String
         
         let dad:Dictionary<String, AnyObject>? = user?.father
-        self.fatherFirstNameField?.text = dad?["first_name"] as! String
-        self.fatherLastNameField?.text = dad?["last_name"] as! String
+        self.fatherFirstNameField?.text = dad?["first_name"] as? String
+        self.fatherLastNameField?.text = dad?["last_name"] as? String
         
         self.ref = Firebase(url: "https://the-godfather.firebaseio.com/users/\(user!.id!)")
         
@@ -123,6 +121,16 @@ class UserEditViewController: UIViewController {
             
         }
     }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        for textField in view.subviews {
+            if textField.becomeFirstResponder() {
+                textField.resignFirstResponder()
+            }
+        }
+
+    }
+
     
     /*
     // MARK: - Navigation

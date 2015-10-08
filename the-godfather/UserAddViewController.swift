@@ -87,8 +87,6 @@ class UserAddViewController: UIViewController {
     func blankCheck(text: String) -> Bool {
         var result = true
         
-        print("\(text)")
-        
         if text == "" {
             result = false
         }
@@ -105,6 +103,15 @@ class UserAddViewController: UIViewController {
         }
     }
 
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        for textField in view.subviews {
+            if textField.becomeFirstResponder() {
+                textField.resignFirstResponder()
+            }
+        }
+
+    }
+    
     /*
     // MARK: - Navigation
 
