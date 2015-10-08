@@ -69,7 +69,7 @@ class UserAddViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let datePicker: UIDatePicker = UIDatePicker()
-        
+        datePicker.datePickerMode = UIDatePickerMode.Date
         datePicker.addTarget(self, action: "datePickerAction:", forControlEvents: .ValueChanged)
         
         let dateFormatter = NSDateFormatter()
