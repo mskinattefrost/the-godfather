@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserAddViewController: UIViewController {
+class UserAddViewController: UIViewController, UITextFieldDelegate {
     
     var ref: Firebase?
     
@@ -62,6 +62,9 @@ class UserAddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.motherLastNameField.delegate = self
+        self.motherFirstNameField.delegate = self
         
         self.ref = Firebase(url: "https://the-godfather.firebaseio.com/users/")
         
@@ -110,6 +113,33 @@ class UserAddViewController: UIViewController {
             }
         }
 
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) { // became first responder
+        //move textfields up
+        let myScreenRect: CGRect = UIScreen.mainScreen().bounds
+        let keyboardHeight : CGFloat = 240
+        
+        UIView.beginAnimations( "animateView", context: nil)
+        var needToMove: CGFloat = 0
+        
+        var frame : CGRect = self.view.frame
+        if (textField.frame.origin.y + textField.frame.size.height + /*self.navigationController.navigationBar.frame.size.height + */UIApplication.sharedApplication().statusBarFrame.size.height > (myScreenRect.size.height - keyboardHeight)) {
+            needToMove = (textField.frame.origin.y + textField.frame.size.height + /*self.navigationController.navigationBar.frame.size.height +*/ UIApplication.sharedApplication().statusBarFrame.size.height) - (myScreenRect.size.height - keyboardHeight);
+        }
+        
+        frame.origin.y = -needToMove
+        self.view.frame = frame
+        UIView.commitAnimations()
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        //move textfields back down
+        UIView.beginAnimations( "animateView", context: nil)
+        var frame : CGRect = self.view.frame
+        frame.origin.y = 0
+        self.view.frame = frame
+        UIView.commitAnimations()
     }
     
     /*
